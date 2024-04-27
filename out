@@ -1,0 +1,10 @@
+total 8
+drwxr-xr-x   9 yboumlak  candidates   306 Apr 25 16:38 .
+drwxr-xr-x   9 yboumlak  candidates   306 Apr 25 12:33 ..
+drwxr-xr-x  10 yboumlak  candidates   340 Apr 25 16:30 .git
+-rw-r--r--   1 yboumlak  candidates  1413 Apr 25 15:08 Makefile
+-rw-r--r--   1 yboumlak  candidates     0 Apr 25 16:46 in
+drwxr-xr-x   2 yboumlak  candidates    68 Apr 25 13:06 inc
+drwxr-xr-x   3 yboumlak  candidates   102 Apr 25 15:07 lib
+-rw-r--r--   1 yboumlak  candidates     0 Apr 25 16:46 out
+drwxr-xr-x   4 yboumlak  candidates   136 Apr 25 13:06 src
