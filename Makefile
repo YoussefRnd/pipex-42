@@ -2,7 +2,7 @@ NAME = pipex
 # BONUS = 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -O3 -g 
+CFLAGS =  -g 
 RM = rm -fr
 MKDIR = mkdir -p
 
@@ -31,7 +31,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS)
 
 $(NAME): $(OBJS)
-	@make -s -C $(LIBFT_DIR)
+	@make -s bonus -C $(LIBFT_DIR)
 	@echo "Building $@..."
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)
 	@echo "$@ is ready!"
