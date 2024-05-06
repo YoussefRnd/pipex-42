@@ -6,7 +6,7 @@
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:38:15 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/02 15:05:07 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:38:30 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,24 @@
 # include <stdbool.h>
 # include <unistd.h>
 
-// typedef struct s_cmd
-// {
-// 	char	*cmd;
-// 	t_cmd	*next;
-// }			t_cmd;
+typedef struct s_pipe
+{
+	int		idx;
+	int		argc;
+	char 	**args;
+	int		pipe_fd[2];
+	int		prev_fd;
+	int		in_fd;
+	int		out_fd;
+	char	*cmd;
+	char	**envp;
+	int		input_fd;
+}			t_pipe;
+
+char		*is_path_valid(char *cmd, char **env_vars);
+
+char		**split_cmd(char *s);
+
+void		execute_pipe(t_pipe *p);
 
 #endif
