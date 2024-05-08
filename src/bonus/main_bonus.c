@@ -1,43 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:21:30 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/07 12:18:13 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:03:15 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/pipex.h"
-
-void	leaks(void)
-{
-	system("leaks pipex");
-}
+#include "../../inc/pipex_bonus.h"
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipe	p;
 
-	// atexit(leaks);
 	p.argc = argc;
 	p.args = argv;
 	p.envp = envp;
-	if (argc == 5)
+	if (argc > 5)
 	{
-		p.in_fd = open(argv[1], O_RDONLY);
-		if (p.in_fd < 0)
+		if (is_here_doc(p.args))
 		{
-			perror("Error opening input file");
-			return (1);
+			p.idx = 3;
+			p.is_here_doc = true;
 		}
-		p.out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
-		if (p.out_fd < 0)
+		else
 		{
-			perror("Error opening output file");
-			return (1);
+			p.idx = 2;
+			p.out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+			if (p.out_fd < 0)
+			{
+				perror("Error opening output file");
+				return (1);
+			}
 		}
 		execute_pipe(&p);
 	}
