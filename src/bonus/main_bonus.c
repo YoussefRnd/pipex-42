@@ -6,7 +6,7 @@
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:21:30 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/08 18:54:28 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/08 22:44:50 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	main(int argc, char **argv, char **envp)
 			return (1);
 		}
 		execute_pipe(&p);
+		while(1);
 	}
 	else
 		perror("Ghayerha");

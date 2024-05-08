@@ -6,7 +6,7 @@
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:36:19 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/08 18:48:53 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/08 21:58:17 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	here_doc(t_pipe *p)
 	int		fd;
 	char	*buffer;
 
-	fd = open("/tmp/.here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	fd = open("/tmp/.here_doc", O_CREAT | O_WRONLY | O_APPEND, 0777);
 	if (fd == -1)
 	{
 		perror("Error opening file");
@@ -41,7 +41,7 @@ void	here_doc(t_pipe *p)
 	}
 	free(buffer);
 	close(fd);
-	p->input_fd = open("/tmp/.here_doc", O_WRONLY, 0777);
+	p->input_fd = open("/tmp/.here_doc", O_RDONLY);
 	if (p->input_fd == -1)
 	{
 		unlink("/tmp/.here_doc");
