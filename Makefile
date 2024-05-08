@@ -41,12 +41,12 @@ bonus: $(BONUS)
 $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c $(INC_DIR)/pipex_bonus.h
 	@$(MKDIR) $(OBJ_BONUS_DIR)
 	@echo "Compiling $<..."
-	@$(CC) $(CFLAGS) -g -fsanitize=address -c $< -o $@ $(HEADERS)
+	@$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS)
 
 $(BONUS): $(OBJS_BONUS)
 	@make -s bonus -C $(LIBFT_DIR)
 	@echo "Building $@..."
-	@$(CC) $(CFLAGS) -g -fsanitize=address -o $(BONUS) $(OBJS_BONUS) $(LIBFT)
+	@$(CC) $(CFLAGS) -o $(BONUS) $(OBJS_BONUS) $(LIBFT)
 	@echo "$@ is ready!"
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 19:31:48 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/08 10:50:05 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:16:41 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,7 @@ void	child_proc(t_pipe *p)
 	char	*cmd_path;
 
 	cmd_args = split_cmd(p->cmd);
-	// for (size_t i = 0; i < 2; i++)
-	// {
-	// 	dprintf(2, "%s\n", cmd_args[i]);
-	// }
 	cmd_path = is_path_valid(cmd_args[0], p->envp);
-	dprintf(2, "%s\n", cmd_path);
 	if (cmd_path == NULL)
 	{
 		perror("Command not found");

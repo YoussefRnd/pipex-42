@@ -3,6 +3,7 @@
         "unistd.h": "c",
         "pipex.h": "c",
         "pipex_bonus.h": "c",
-        "get_next_line_bonus.h": "c"
+        "get_next_line_bonus.h": "c",
+        "fcntl.h": "c"
     }
 }

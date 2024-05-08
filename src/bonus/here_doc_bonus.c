@@ -6,7 +6,7 @@
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:36:19 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/08 12:52:13 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:22:01 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,18 @@ void	here_doc(t_pipe *p)
 		buffer = get_next_line(0);
 		if (ft_strncmp(buffer, p->args[2], ft_strlen(buffer) - 1) == 0)
 			break ;
-		dprintf(2, "[gnl out: %s] [size: %lu] [stoper: %s] [size: %lu]\n", buffer,
-			ft_strlen(buffer), p->args[2], ft_strlen(p->args[2]));
 		write(fd, buffer, ft_strlen(buffer));
-		write(fd, "\n", 1);
 		free(buffer);
 	}
-	dprintf(2, "!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 	free(buffer);
 	close(fd);
-	p->input_fd = open("/tmp/.here_doc", O_RDWR, 0777);
-	if (p->input_fd == -1)
+	p->in_fd = open("/tmp/.here_doc", O_WRONLY, 0777);
+	if (p->in_fd == -1)
 	{
 		unlink("/tmp/.here_doc");
 		perror("Error reopening file");
 		exit(EXIT_FAILURE);
 	}
-	// dup2(p->input_fd, STDIN_FILENO);
-	close(p->input_fd);
+	close(p->in_fd);
 	// unlink("/tmp/.here_doc");
 }

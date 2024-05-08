@@ -6,7 +6,7 @@
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 19:31:48 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/08 12:57:20 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:20:39 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	child_proc(t_pipe *p)
 		exit(EXIT_FAILURE);
 	}
 	cmd_args[0] = cmd_path;
+	if (p->is_here_doc && p->idx == 3)
+		here_doc(p);
 	if ((p->idx == 2 && !p->is_here_doc) || (p->idx == 3 && p->is_here_doc))
 		dup2(p->input_fd, STDIN_FILENO);
 	else
@@ -45,10 +47,7 @@ void	parent_proc(t_pipe *p)
 	close(p->pipe_fd[1]);
 	if (p->prev_fd != -1)
 		close(p->prev_fd);
-	if (p->is_here_doc && p->idx == 3)
-		here_doc(p);
-	else
-		p->prev_fd = p->pipe_fd[0];
+	p->prev_fd = p->pipe_fd[0];
 	if (p->idx == p->argc - 2)
 		close(p->prev_fd);
 }
