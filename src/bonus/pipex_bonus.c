@@ -6,7 +6,7 @@
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 19:31:48 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/08 18:20:39 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:42:06 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,27 @@ void	child_proc(t_pipe *p)
 		exit(EXIT_FAILURE);
 	}
 	cmd_args[0] = cmd_path;
-	if (p->is_here_doc && p->idx == 3)
-		here_doc(p);
+	dprintf(2,"current_input_fd: %d | prev_fd: %d | in_fd: %d | out_fd: %d | pipe_fd0: %d | pipe_fd1: %d\n", p->input_fd, p->prev_fd, p->in_fd, p->out_fd, p->pipe_fd[0], p->pipe_fd[1]);
 	if ((p->idx == 2 && !p->is_here_doc) || (p->idx == 3 && p->is_here_doc))
+	{
 		dup2(p->input_fd, STDIN_FILENO);
-	else
+		dprintf(2, "input_fd used\n");
+	}
+	else {
 		dup2(p->prev_fd, STDIN_FILENO);
+		dprintf(2, "prev_fd used\n");
+
+	}
 	if (p->idx != p->argc - 2)
 	{
 		dup2(p->pipe_fd[1], STDOUT_FILENO);
+		dprintf(2, "pipe_fd1 used\n");
 		close(p->pipe_fd[1]);
 	}
-	else
+	else {
 		dup2(p->out_fd, STDOUT_FILENO);
+		dprintf(2, "out_fd used\n");
+	}
 	close(p->pipe_fd[0]);
 	execve(cmd_path, cmd_args, p->envp);
 }
@@ -45,7 +53,7 @@ void	child_proc(t_pipe *p)
 void	parent_proc(t_pipe *p)
 {
 	close(p->pipe_fd[1]);
-	if (p->prev_fd != -1)
+	if (p->prev_fd != -1 && !p->is_here_doc)
 		close(p->prev_fd);
 	p->prev_fd = p->pipe_fd[0];
 	if (p->idx == p->argc - 2)
@@ -63,6 +71,8 @@ void	execute_pipe(t_pipe *p)
 	{
 		p->cmd = p->args[p->idx];
 		pipe(p->pipe_fd);
+		if (p->is_here_doc && p->idx == 3)
+			here_doc(p);
 		pid = fork();
 		if (pid == 0)
 			child_proc(p);
@@ -75,6 +85,6 @@ void	execute_pipe(t_pipe *p)
 		}
 		p->idx++;
 	}
-	while (waitpid(-1, &status, 0) > 0)
+	while (waitpid(0, &status, 0) > 0)
 		;
 }

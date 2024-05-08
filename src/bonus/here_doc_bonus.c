@@ -6,7 +6,7 @@
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:36:19 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/08 18:22:01 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:48:53 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,12 @@ void	here_doc(t_pipe *p)
 	}
 	free(buffer);
 	close(fd);
-	p->in_fd = open("/tmp/.here_doc", O_WRONLY, 0777);
-	if (p->in_fd == -1)
+	p->input_fd = open("/tmp/.here_doc", O_WRONLY, 0777);
+	if (p->input_fd == -1)
 	{
 		unlink("/tmp/.here_doc");
 		perror("Error reopening file");
 		exit(EXIT_FAILURE);
 	}
-	close(p->in_fd);
 	// unlink("/tmp/.here_doc");
 }

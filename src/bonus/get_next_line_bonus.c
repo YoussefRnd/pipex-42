@@ -6,7 +6,7 @@
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:04:40 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/07 16:46:30 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:26:25 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ char	*read_file(int fd, char *stash)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash[OPEN_MAX];
+	static char	*stash[FOPEN_MAX];
 	char		*line;
 
-	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= FOPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	stash[fd] = read_file(fd, stash[fd]);
 	if (!stash[fd])

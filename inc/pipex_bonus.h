@@ -6,7 +6,7 @@
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:38:15 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/08 12:32:59 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:26:10 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <unistd.h>
+#include <sys/wait.h>
 
 typedef struct s_pipe
 {

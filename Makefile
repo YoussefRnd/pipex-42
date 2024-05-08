@@ -2,7 +2,7 @@ NAME = pipex
 BONUS = pipex_bonus
 
 CC = cc
-CFLAGS =  -g -fsanitize=address
+CFLAGS =  -g
 RM = rm -fr
 MKDIR = mkdir -p
 
@@ -52,12 +52,12 @@ $(BONUS): $(OBJS_BONUS)
 clean:
 	@echo "Cleaning object files..."
 	@make -s clean -C $(LIBFT_DIR)
-	@$(RM) $(OBJ_DIR)
+	@$(RM) $(OBJ_DIR) $(OBJ_BONUS_DIR)
 
 fclean: clean
 	@echo "Cleaning $(NAME)..."
 	@make -s fclean -C $(LIBFT_DIR)
-	@$(RM) $(NAME)
+	@$(RM) $(NAME) $(BONUS)
 
 re: fclean all
 
