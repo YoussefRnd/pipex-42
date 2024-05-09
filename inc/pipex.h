@@ -6,7 +6,7 @@
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:38:15 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/08 17:26:14 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:42:26 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 # include "../lib/Libft/libft.h"
 # include <fcntl.h>
 # include <stdbool.h>
+# include <sys/wait.h>
 # include <unistd.h>
-#include <sys/wait.h>
 
 typedef struct s_pipe
 {
 	int		idx;
 	int		argc;
-	char 	**args;
+	char	**args;
 	int		pipe_fd[2];
 	int		prev_fd;
 	int		in_fd;
@@ -38,5 +38,8 @@ char		*is_path_valid(char *cmd, char **env_vars);
 char		**split_cmd(char *s);
 
 void		execute_pipe(t_pipe *p);
+
+void		error(char *error_msg);
+void		print_usage(void);
 
 #endif

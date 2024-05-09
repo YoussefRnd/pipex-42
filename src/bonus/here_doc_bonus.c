@@ -6,7 +6,7 @@
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:36:19 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/08 21:58:17 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:13:59 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,23 @@ void	here_doc(t_pipe *p)
 
 	fd = open("/tmp/.here_doc", O_CREAT | O_WRONLY | O_APPEND, 0777);
 	if (fd == -1)
-	{
-		perror("Error opening file");
-		exit(EXIT_FAILURE);
-	}
+		error("Error opening here_doc file");
 	while (true)
 	{
 		ft_putstr_fd("heredoc> ", 1);
 		buffer = get_next_line(0);
 		if (ft_strncmp(buffer, p->args[2], ft_strlen(buffer) - 1) == 0)
 			break ;
-		write(fd, buffer, ft_strlen(buffer));
+		ft_putstr_fd(buffer, fd);
 		free(buffer);
 	}
 	free(buffer);
 	close(fd);
-	p->input_fd = open("/tmp/.here_doc", O_RDONLY);
-	if (p->input_fd == -1)
+	p->in_fd = open("/tmp/.here_doc", O_RDONLY);
+	if (p->in_fd == -1)
 	{
 		unlink("/tmp/.here_doc");
-		perror("Error reopening file");
-		exit(EXIT_FAILURE);
+		error("Error opening here_doc file");
 	}
-	// unlink("/tmp/.here_doc");
+	unlink("/tmp/.here_doc");
 }

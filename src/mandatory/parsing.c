@@ -6,7 +6,7 @@
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:15:55 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/07 16:32:57 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:17:53 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ char	**split_cmd(char *s)
 		if ((*s == ' ' && !in_quotes) || *(s + 1) == '\0')
 		{
 			buffer = ft_substr(start, 0, s - start + (*(s + 1) == '\0'));
-			ft_lstadd_back(&lst, ft_lstnew(ft_strtrim(buffer, "\'\"")));
+			if (ft_strncmp(buffer, "\'", ft_strlen(buffer)) == 0
+				|| ft_strncmp(buffer, "\"", ft_strlen(buffer)) == 0)
+				ft_lstadd_back(&lst, ft_lstnew(buffer));
+			else
+				ft_lstadd_back(&lst, ft_lstnew(ft_strtrim(buffer, "\'\"")));
 			start = s + 1;
 		}
 		else if (*s == '\'' || *s == '\"')

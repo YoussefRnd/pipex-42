@@ -6,19 +6,19 @@
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:38:15 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/08 17:26:10 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/09 18:53:52 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include "../lib/Libft/libft.h"
 # include "../src/bonus/get_next_line_bonus.h"
 # include <fcntl.h>
 # include <stdbool.h>
+# include <sys/wait.h>
 # include <unistd.h>
-#include <sys/wait.h>
 
 typedef struct s_pipe
 {
@@ -44,5 +44,8 @@ void		execute_pipe(t_pipe *p);
 void		here_doc(t_pipe *p);
 
 bool		is_here_doc(char **cmd_args);
+
+void		error(char *error_msg);
+void		print_usage(void);
 
 #endif

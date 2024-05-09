@@ -6,7 +6,7 @@
 /*   By: yboumlak <yboumlak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 19:31:48 by yboumlak          #+#    #+#             */
-/*   Updated: 2024/05/08 18:16:41 by yboumlak         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:17:06 by yboumlak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,20 @@ void	child_proc(t_pipe *p)
 	cmd_args = split_cmd(p->cmd);
 	cmd_path = is_path_valid(cmd_args[0], p->envp);
 	if (cmd_path == NULL)
-	{
-		perror("Command not found");
-		exit(EXIT_FAILURE);
-	}
+		error("Command not found");
 	cmd_args[0] = cmd_path;
 	if (p->idx == 2)
 		dup2(p->input_fd, STDIN_FILENO);
 	else
 		dup2(p->prev_fd, STDIN_FILENO);
 	if (p->idx != p->argc - 2)
+	{
 		dup2(p->pipe_fd[1], STDOUT_FILENO);
+		close(p->pipe_fd[1]);
+	}
 	else
 		dup2(p->out_fd, STDOUT_FILENO);
 	close(p->pipe_fd[0]);
-	if (p->idx != p->argc - 2)
-		close(p->pipe_fd[1]);
 	execve(cmd_path, cmd_args, p->envp);
 }
 
@@ -67,10 +65,7 @@ void	execute_pipe(t_pipe *p)
 		else if (pid > 0)
 			parent_proc(p);
 		else
-		{
-			perror("Fork");
-			exit(EXIT_FAILURE);
-		}
+			error("Fork");
 		p->idx++;
 	}
 	while (waitpid(-1, &status, 0) > 0)
