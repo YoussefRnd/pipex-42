@@ -2,7 +2,7 @@ NAME = pipex
 BONUS = pipex_bonus
 
 CC = cc
-CFLAGS =  -g
+CFLAGS =  -Wall -Wextra -Werror -g
 RM = rm -fr
 MKDIR = mkdir -p
 
@@ -17,10 +17,23 @@ OBJ_BONUS_DIR = obj_bonus
 
 HEADERS = -I $(INC_DIR)
 
-SRCS = $(wildcard $(SRC_DIR)/*.c)
+SRCS = $(SRC_DIR)/cmd_path.c \
+	$(SRC_DIR)/error.c \
+	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/parsing.c \
+	$(SRC_DIR)/pipex.c
+
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-SRCS_BONUS = $(wildcard $(SRC_BONUS_DIR)/*.c)
+SRCS_BONUS = $(SRC_BONUS_DIR)/cmd_path_bonus.c \
+	$(SRC_BONUS_DIR)/error_bonus.c \
+	$(SRC_BONUS_DIR)/get_next_line_bonus.c \
+	$(SRC_BONUS_DIR)/get_next_line_utils_bonus.c \
+	$(SRC_BONUS_DIR)/here_doc_bonus.c \
+	$(SRC_BONUS_DIR)/main_bonus.c \
+	$(SRC_BONUS_DIR)/parsing_bonus.c \
+	$(SRC_BONUS_DIR)/pipex_bonus.c
+
 OBJS_BONUS = $(SRCS_BONUS:$(SRC_BONUS_DIR)/%.c=$(OBJ_BONUS_DIR)/%.o)
 
 all: $(NAME)
